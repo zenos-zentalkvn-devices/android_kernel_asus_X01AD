@@ -29,6 +29,9 @@ static ssize_t sdcardfs_read(struct file *file, char __user *buf,
 	int err;
 	struct file *lower_file;
 	struct dentry *dentry = file->f_path.dentry;
+
+	printk(KERN_ERR "%s begin \n",__func__);
+
 #ifdef CONFIG_SDCARD_FS_FADV_NOACTIVE
 	struct backing_dev_info *bdi;
 #endif

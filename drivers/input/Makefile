@@ -33,4 +33,6 @@ obj-$(CONFIG_RMI4_CORE)		+= rmi4/
 
 obj-$(CONFIG_INPUT_KEYRESET)	+= keyreset.o
 obj-$(CONFIG_INPUT_KEYCOMBO)	+= keycombo.o
-
+# Huaqin modify for ZQL1830-395 by zhaojunhai1 at 2018/7/17 start
+obj-$(CONFIG_INPUT_FINGERPRINT)	+= fingerprint/
+# Huaqin modify for ZQL1830-395 by zhaojunhai1 at 2018/7/17 end

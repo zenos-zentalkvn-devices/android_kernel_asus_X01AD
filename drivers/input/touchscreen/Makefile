@@ -75,6 +75,12 @@ obj-$(CONFIG_TOUCHSCREEN_SUR40)		+= sur40.o
 obj-$(CONFIG_TOUCHSCREEN_SURFACE3_SPI)	+= surface3_spi.o
 obj-$(CONFIG_TOUCHSCREEN_SYNAPTICS_DSX) += synaptics_dsx/
 obj-$(CONFIG_TOUCHSCREEN_SYNAPTICS_DSX_v26)	+= synaptics_dsx_2.6/
+# huaqin add for bring up NVT tp by liufurong at 20180726 start
+obj-$(CONFIG_TOUCHSCREEN_NT36xxx)	+= NVT_TP_Driver/
+# huaqin add for bring up NVT tp by liufurong at 20180726 end
+# huaqin add for bring up ili9881h by liufurong at 20180719 start
+obj-$(CONFIG_TOUCHSCREEN_ILI9881H)	+= ipio_touch_driver-v1.0.3.5/
+# huaqin add for bring up ili9881h by liufurong at 20180719 end
 obj-$(CONFIG_TOUCHSCREEN_TI_AM335X_TSC)	+= ti_am335x_tsc.o
 obj-$(CONFIG_TOUCHSCREEN_TOUCHIT213)	+= touchit213.o
 obj-$(CONFIG_TOUCHSCREEN_TOUCHRIGHT)	+= touchright.o

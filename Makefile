@@ -404,6 +404,17 @@ KBUILD_CFLAGS   := -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs \
 		   -Wno-format-security \
 		   -std=gnu89
 KBUILD_CPPFLAGS := -D__KERNEL__
+
+# Added by zhangyuzhou for kernel macro custom config begin
+ifeq ($(HQ_FACTORY_BUILD),true)
+KBUILD_CPPFLAGS += -DHQ_FACTORY_BUILD=1
+KBUILD_CFLAGS += -DHQ_FACTORY_BUILD=1
+else
+KBUILD_CPPFLAGS += -DHQ_FACTORY_BUILD=0
+KBUILD_CFLAGS += -DHQ_FACTORY_BUILD=0
+endif
+# Added by zhangyuzhou for kernel macro custom config end
+
 KBUILD_AFLAGS_KERNEL :=
 KBUILD_CFLAGS_KERNEL :=
 KBUILD_AFLAGS_MODULE  := -DMODULE

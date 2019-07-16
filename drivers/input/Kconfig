@@ -216,6 +216,10 @@ source "drivers/input/misc/Kconfig"
 
 source "drivers/input/rmi4/Kconfig"
 
+# Huaqin modify for ZQL1830-395 by zhaojunhai1 at 2018/7/17 start
+source "drivers/input/fingerprint/Kconfig"
+# Huaqin modify for ZQL1830-395 by zhaojunhai1 at 2018/7/17 end
+
 endif
 
 menu "Hardware I/O ports"

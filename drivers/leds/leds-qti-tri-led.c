@@ -68,6 +68,9 @@ struct qpnp_led_dev {
 	u8			id;
 	bool			blinking;
 	bool			breathing;
+	/*Huaqin modify by yangliguo at 2018/09/15 begin */
+	int 			led_cust_brightness;
+	/*Huaqin modify by yangliguo at 2018/09/15 end */	
 };
 
 struct qpnp_tri_led_chip {
@@ -175,14 +178,14 @@ static int qpnp_tri_led_set(struct qpnp_led_dev *led)
 			duty_ns = INT_MAX - 1;
 		else
 			duty_ns = on_ms * NSEC_PER_MSEC;
-
-		if (on_ms + off_ms > INT_MAX / NSEC_PER_MSEC) {
-			period_ns = INT_MAX;
+		/*Huaqin modify for ZQL1830-827 by yangliguo at 2018/10/01 start */
+		if (on_ms + off_ms > UINT_MAX / NSEC_PER_MSEC) {
+			period_ns = UINT_MAX;
 			duty_ns = (period_ns / (on_ms + off_ms)) * on_ms;
 		} else {
 			period_ns = (on_ms + off_ms) * NSEC_PER_MSEC;
 		}
-
+		/*Huaqin modify for ZQL1830-827 by yangliguo at 2018/10/01 end */
 		if (period_ns < duty_ns && duty_ns != 0)
 			period_ns = duty_ns + 1;
 	} else {
@@ -213,11 +216,15 @@ static int qpnp_tri_led_set(struct qpnp_led_dev *led)
 	}
 
 	if (led->led_setting.blink) {
-		led->cdev.brightness = LED_FULL;
+		/*Huaqin modify by yangliguo at 2018/09/15 begin */
+		led->cdev.brightness = led->led_cust_brightness;
+		/*Huaqin modify by yangliguo at 2018/09/15 end */
 		led->blinking = true;
 		led->breathing = false;
 	} else if (led->led_setting.breath) {
-		led->cdev.brightness = LED_FULL;
+		/*Huaqin modify by yangliguo at 2018/09/15 begin */
+		led->cdev.brightness = led->led_cust_brightness;
+		/*Huaqin modify by yangliguo at 2018/09/15 end */
 		led->blinking = false;
 		led->breathing = true;
 	} else {
@@ -483,7 +490,14 @@ static int qpnp_tri_led_parse_dt(struct qpnp_tri_led_chip *chip)
 		led->label =
 			of_get_property(child_node, "label", NULL) ? :
 							child_node->name;
-
+		/*Huaqin modify by yangliguo at 2018/09/15 begin */ 
+		rc=of_property_read_u32(child_node,"qcom,max-brightness", &led->led_cust_brightness);
+		if(rc)
+		{
+			dev_err(chip->dev, "Fail reading max brightness,rc=%d\n",rc);
+			return rc;
+		}
+		/*Huaqin modify by yangliguo at 2018/09/15 end */
 		led->pwm_dev =
 			devm_of_pwm_get(chip->dev, child_node, NULL);
 		if (IS_ERR(led->pwm_dev)) {

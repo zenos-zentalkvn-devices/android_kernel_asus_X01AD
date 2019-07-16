@@ -6358,7 +6358,8 @@ int tcp_conn_request(struct request_sock_ops *rsk_ops,
 	 * clogging syn queue with openreqs with exponentially increasing
 	 * timeout.
 	 */
-	if (sk_acceptq_is_full(sk) && inet_csk_reqsk_queue_young(sk) > 1) {
+	// if (sk_acceptq_is_full(sk) && inet_csk_reqsk_queue_young(sk) > 1) {
+        if (sk_acceptq_is_full(sk)) {
 		NET_INC_STATS(sock_net(sk), LINUX_MIB_LISTENOVERFLOWS);
 		goto drop;
 	}

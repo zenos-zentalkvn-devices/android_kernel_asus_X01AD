@@ -36,6 +36,21 @@
 		bootargs = "kpti=0";
 	};
 };
+
+/{
+	reserved-memory {
+		ramoops: ramoops@b0000000 {
+			compatible = "ramoops";
+			reg = <0 0xb0000000 0 0x00400000>;
+			record-size = <0x40000>; /*256x1024*/
+			console-size = <0x40000>;
+			ftrace-size = <0x40000>;
+			pmsg-size = <0x200000>;
+			ecc-size = <0x0>;
+		};
+	};
+};
+
 /* Huaqin modify for ili lcm by zhanghao at 2018/07/20 start*/
 &mdss_mdp {
 	qcom,mdss-pref-prim-intf = "dsi";
